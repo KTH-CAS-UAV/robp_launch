@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>robp_launch</name>
+  <version>1.0.0</version>
+  <description>The robp_launch package</description>
+
+  <maintainer email="dduberg@kth.se">Daniel Duberg</maintainer>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/KTH-CAS-UAV/robp_launch</url>
+
+  <author email="dduberg@kth.se">Daniel Duberg</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+</package>
