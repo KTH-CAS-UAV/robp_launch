@@ -102,4 +102,5 @@
       <arg name="publish_odom_tf" value="$(arg publish_odom_tf)"/>
       <arg name="allow_no_texture_points" value="$(arg allow_no_texture_points)"/>
     </include>
-  </launch>
+  </group>
+</launch>
