@@ -1,16 +1,28 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>robp_launch</name>
   <version>1.0.0</version>
-  <description>The robp_launch package</description>
-
+  <description>robp_launch</description>
+  <author email="dduberg@kth.se">Daniel Duberg</author>
   <maintainer email="dduberg@kth.se">Daniel Duberg</maintainer>
-
   <license>MIT</license>
 
-  <url type="website">https://github.com/KTH-CAS-UAV/robp_launch</url>
+  <exec_depend>builtin_interfaces</exec_depend>
+  <exec_depend>controller_manager</exec_depend>
+  <exec_depend>control_msgs</exec_depend>
+  <exec_depend>diff_drive_controller</exec_depend>
+  <exec_depend>joint_state_broadcaster</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>turtlebot3_description</exec_depend>
+  <exec_depend>wasp_autonomous_systems_interfaces</exec_depend>
+  <exec_depend>webots_ros2_driver</exec_depend>
+  <exec_depend>webots_ros2_control</exec_depend>
+  <exec_depend>webots_ros2_turtlebot</exec_depend>
 
-  <author email="dduberg@kth.se">Daniel Duberg</author>
-
-  <buildtool_depend>catkin</buildtool_depend>
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
 </package>
