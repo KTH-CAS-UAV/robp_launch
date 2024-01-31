@@ -6,16 +6,6 @@ package_name = 'robp_launch'
 data_files = []
 data_files.append(('share/ament_index/resource_index/packages', ['resource/' + package_name]))
 data_files.append((os.path.join('share', package_name, 'launch'), glob(os.path.join('launch', '*launch.[pxy][yma]*'))))
-data_files.append((os.path.join('share', package_name, 'worlds'), glob(os.path.join('worlds', '*.[wbt]*'))))
-data_files.append(('share/' + package_name + '/resource', ['resource/ros2control.yaml']))
-data_files.append(('share/' + package_name + '/resource', ['resource/TurtleBot3Burger.proto']))
-data_files.append(('share/' + package_name + '/resource', ['resource/Kinect.proto']))
-data_files.append(('share/' + package_name + '/resource', ['resource/Mavic2Pro.proto']))
-data_files.append((os.path.join('share', package_name, 'meshes'), glob(os.path.join('meshes', '**/*'))))
-data_files.append(('share/' + package_name + '/urdf', ['urdf/turtlebot_webots.urdf']))
-data_files.append(('share/' + package_name + '/urdf', ['urdf/turtlebot_webots_rgbd.urdf']))
-data_files.append(('share/' + package_name + '/urdf', ['urdf/car.urdf']))
-data_files.append(('share/' + package_name + '/urdf', ['urdf/mavic_webots.urdf']))
 data_files.append(('share/' + package_name, ['package.xml']))
 
 setup(
