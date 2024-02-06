@@ -23,8 +23,8 @@ configurable_parameters = [{'name': 'camera_name',                  'default': '
                            {'name': 'rgb_camera.enable_auto_exposure', 'default': 'true', 'description': 'enable/disable auto exposure for color image'},
                            {'name': 'enable_depth',                 'default': 'true', 'description': 'enable depth stream'},
                            {'name': 'enable_infra',                 'default': 'false', 'description': 'enable infra0 stream'},
-                           {'name': 'enable_infra1',                'default': 'false', 'description': 'enable infra1 stream'},
-                           {'name': 'enable_infra2',                'default': 'false', 'description': 'enable infra2 stream'},
+                           {'name': 'enable_infra1',                'default': 'true', 'description': 'enable infra1 stream'},
+                           {'name': 'enable_infra2',                'default': 'true', 'description': 'enable infra2 stream'},
                            {'name': 'depth_module.profile',         'default': '0,0,0', 'description': 'depth module profile'},
                            {'name': 'depth_module.depth_format',    'default': 'Z16', 'description': 'depth stream format'},
                            {'name': 'depth_module.infra_format',    'default': 'RGB8', 'description': 'infra0 stream format'},
@@ -39,7 +39,7 @@ configurable_parameters = [{'name': 'camera_name',                  'default': '
                            {'name': 'depth_module.exposure.2',      'default': '1', 'description': 'Depth module second exposure value. Used for hdr_merge filter'},
                            {'name': 'depth_module.gain.2',          'default': '16', 'description': 'Depth module second gain value. Used for hdr_merge filter'},
                            {'name': 'enable_sync',                  'default': 'false', 'description': "'enable sync mode'"},
-                           {'name': 'enable_rgbd',                  'default': 'false', 'description': "'enable rgbd topic'"},
+                           {'name': 'enable_rgbd',                  'default': 'true', 'description': "'enable rgbd topic'"},
                            {'name': 'enable_gyro',                  'default': 'false', 'description': "'enable gyro stream'"},
                            {'name': 'enable_accel',                 'default': 'false', 'description': "'enable accel stream'"},
                            {'name': 'gyro_fps',                     'default': '0', 'description': "''"},
@@ -51,7 +51,7 @@ configurable_parameters = [{'name': 'camera_name',                  'default': '
                            {'name': 'diagnostics_period',           'default': '0.0', 'description': 'Rate of publishing diagnostics. 0=Disabled'},
                            {'name': 'publish_tf',                   'default': 'true', 'description': '[bool] enable/disable publishing static & dynamic TF'},
                            {'name': 'tf_publish_rate',              'default': '0.0', 'description': '[double] rate in Hz for publishing dynamic TF'},
-                           {'name': 'pointcloud.enable',            'default': 'false', 'description': ''},
+                           {'name': 'pointcloud.enable',            'default': 'true', 'description': ''},
                            {'name': 'pointcloud.stream_filter',     'default': '2', 'description': 'texture stream for pointcloud'},
                            {'name': 'pointcloud.stream_index_filter','default': '0', 'description': 'texture stream index for pointcloud'},
                            {'name': 'pointcloud.ordered_pc',        'default': 'false', 'description': ''},
@@ -98,110 +98,3 @@ def generate_launch_description():
     return LaunchDescription(declare_configurable_parameters(configurable_parameters) + [
         OpaqueFunction(function=launch_setup, kwargs = {'params' : set_configurable_parameters(configurable_parameters)})
     ])
-
-# <?xml version="1.0"?>
-# <launch>
-#   <arg name="serial_no" default=""/>
-#   <arg name="json_file_path" default=""/>
-#   <arg name="camera" default="front_camera"/>
-#   <arg name="tf_prefix" default="$(arg camera)"/>
-#   <arg name="external_manager" default="false"/>
-#   <arg name="manager" default="realsense2_camera_manager"/>
-
-#   <arg name="fisheye_width" default="640"/>
-#   <arg name="fisheye_height" default="480"/>
-#   <arg name="enable_fisheye" default="false"/>
-
-#   <arg name="depth_width" default="640"/>
-#   <arg name="depth_height" default="480"/>
-#   <arg name="enable_depth" default="true"/>
-
-#   <arg name="infra_width" default="640"/>
-#   <arg name="infra_height" default="480"/>
-#   <arg name="enable_infra1" default="true"/>
-#   <arg name="enable_infra2" default="true"/>
-
-#   <arg name="color_width" default="640"/>
-#   <arg name="color_height" default="480"/>
-#   <arg name="enable_color" default="true"/>
-
-#   <arg name="fisheye_fps" default="6"/>
-#   <arg name="depth_fps" default="6"/>
-#   <arg name="infra_fps" default="6"/>
-#   <arg name="color_fps" default="6"/>
-#   <arg name="gyro_fps" default="400"/>
-#   <arg name="accel_fps" default="250"/>
-#   <arg name="enable_gyro" default="true"/>
-#   <arg name="enable_accel" default="true"/>
-
-#   <arg name="enable_pointcloud" default="false"/>
-#   <arg name="pointcloud_texture_stream" default="RS2_STREAM_COLOR"/>
-#   <arg name="pointcloud_texture_index" default="0"/>
-
-#   <arg name="enable_sync" default="false"/>
-#   <arg name="align_depth" default="false"/>
-
-#   <arg name="filters" default="pointcloud"/>
-#   <arg name="clip_distance" default="-2"/>
-#   <arg name="linear_accel_cov" default="0.01"/>
-#   <arg name="initial_reset" default="false"/>
-#   <arg name="reconnect_timeout" default="6.0"/>
-#   <arg name="unite_imu_method" default=""/>
-#   <arg name="topic_odom_in" default="odom_in"/>
-#   <arg name="calib_odom_file" default=""/>
-#   <arg name="publish_odom_tf" default="true"/>
-#   <arg name="allow_no_texture_points" default="false"/>
-
-#   <group ns="$(arg camera)">
-#     <include file="$(find realsense2_camera)/launch/includes/nodelet.launch.xml">
-#       <arg name="tf_prefix" value="$(arg tf_prefix)"/>
-#       <arg name="external_manager" value="$(arg external_manager)"/>
-#       <arg name="manager" value="$(arg manager)"/>
-#       <arg name="serial_no" value="$(arg serial_no)"/>
-#       <arg name="json_file_path" value="$(arg json_file_path)"/>
-
-#       <arg name="enable_pointcloud" value="$(arg enable_pointcloud)"/>
-#       <arg name="pointcloud_texture_stream" value="$(arg pointcloud_texture_stream)"/>
-#       <arg name="pointcloud_texture_index" value="$(arg pointcloud_texture_index)"/>
-#       <arg name="enable_sync" value="$(arg enable_sync)"/>
-#       <arg name="align_depth" value="$(arg align_depth)"/>
-
-#       <arg name="fisheye_width" value="$(arg fisheye_width)"/>
-#       <arg name="fisheye_height" value="$(arg fisheye_height)"/>
-#       <arg name="enable_fisheye" value="$(arg enable_fisheye)"/>
-
-#       <arg name="depth_width" value="$(arg depth_width)"/>
-#       <arg name="depth_height" value="$(arg depth_height)"/>
-#       <arg name="enable_depth" value="$(arg enable_depth)"/>
-
-#       <arg name="color_width" value="$(arg color_width)"/>
-#       <arg name="color_height" value="$(arg color_height)"/>
-#       <arg name="enable_color" value="$(arg enable_color)"/>
-
-#       <arg name="infra_width" value="$(arg infra_width)"/>
-#       <arg name="infra_height" value="$(arg infra_height)"/>
-#       <arg name="enable_infra1" value="$(arg enable_infra1)"/>
-#       <arg name="enable_infra2" value="$(arg enable_infra2)"/>
-
-#       <arg name="fisheye_fps" value="$(arg fisheye_fps)"/>
-#       <arg name="depth_fps" value="$(arg depth_fps)"/>
-#       <arg name="infra_fps" value="$(arg infra_fps)"/>
-#       <arg name="color_fps" value="$(arg color_fps)"/>
-#       <arg name="gyro_fps" value="$(arg gyro_fps)"/>
-#       <arg name="accel_fps" value="$(arg accel_fps)"/>
-#       <arg name="enable_gyro" value="$(arg enable_gyro)"/>
-#       <arg name="enable_accel" value="$(arg enable_accel)"/>
-
-#       <arg name="filters" value="$(arg filters)"/>
-#       <arg name="clip_distance" value="$(arg clip_distance)"/>
-#       <arg name="linear_accel_cov" value="$(arg linear_accel_cov)"/>
-#       <arg name="initial_reset" value="$(arg initial_reset)"/>
-#       <arg name="reconnect_timeout" value="$(arg reconnect_timeout)"/>
-#       <arg name="unite_imu_method" value="$(arg unite_imu_method)"/>
-#       <arg name="topic_odom_in" value="$(arg topic_odom_in)"/>
-#       <arg name="calib_odom_file" value="$(arg calib_odom_file)"/>
-#       <arg name="publish_odom_tf" value="$(arg publish_odom_tf)"/>
-#       <arg name="allow_no_texture_points" value="$(arg allow_no_texture_points)"/>
-#     </include>
-#   </group>
-# </launch>
