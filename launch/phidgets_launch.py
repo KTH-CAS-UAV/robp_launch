@@ -8,11 +8,12 @@ from launch_ros.descriptions import ComposableNode
 def generate_launch_description():
     """Generate launch description with multiple components."""
     container = ComposableNodeContainer(
-            name='robp_phidget_container',
-            namespace='',
-            package='rclcpp_components',
-            executable='component_container',
-            composable_node_descriptions=[
+        name='robp_phidget_container',
+        namespace='',
+        package='rclcpp_components',
+        # Could also try 'component_container_mt' ('component_container' is not a good idea since it is single-threaded)
+        executable='component_container_isolated',
+        composable_node_descriptions=[
                 ComposableNode(
                     package='robp_phidgets_encoders',
                     plugin='robp::phidgets::Encoders',
@@ -29,8 +30,8 @@ def generate_launch_description():
                     package='robp_phidgets_temperature',
                     plugin='robp::phidgets::Temperature',
                     name='robp_phidgets_temperature')
-            ],
-            output='screen',
+        ],
+        output='screen',
     )
 
     return launch.LaunchDescription([container])
